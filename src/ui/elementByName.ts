@@ -11,6 +11,7 @@ import Frequency from '../cat/Frequency.svelte';
 import Auxiliary from '../aux/Auxiliary.svelte';
 import HID from '../hid/HID.svelte';
 import FT8 from '../ft8/FT8.svelte';
+import RigToUsb from '../rig_to_usb/Test.svelte';
 
 export function elementByName(element : String) : ComponentType {
   switch(element) {
@@ -25,7 +26,7 @@ export function elementByName(element : String) : ComponentType {
     case 'Test': return Test;
     case 'Auxiliary': return Auxiliary;
     case 'Wheel': return Wheel;
+    case 'RigToUsb': return RigToUsb;
     default : return Debug;
   }
 }
-

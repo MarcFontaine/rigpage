@@ -39,8 +39,8 @@ export const rig = $state(
   , bfo: 0
   , power: null as (Type.XK852Power | null)
   , mode: null as (Type.XK852Mode | null)
-  , keepRadioOn: False
-  , keepTxOn: False
+  , keepRadioOn: false
+  , keepTxOn: false
   });
 
 export const webRTC = $state(

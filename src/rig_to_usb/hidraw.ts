@@ -1,9 +1,9 @@
 import {setGuiMode, GuiMode} from '../gui';
 import { gotoStartRigToUSB } from '../ui/routes';
-import {pushLog} from '../state.svelte';
+import {pushLog, rig} from '../state.svelte';
 import {setReturnMsg} from '../setXK852Status';
 import {type CmdType} from '../state.svelte';
-import { type Cmd, CMD, toCBOR, deserializeHIDReport } from './cmd';
+import { type Cmd, CMD, toCBOR, deserializeHIDReport, prebuild_cmds } from './cmd';
 import * as State from '../state.svelte';
 
 var device: HIDDevice | null = null;
@@ -11,6 +11,8 @@ var device: HIDDevice | null = null;
 const REPORT_ID = 0;
 const VENDOR_ID = 0x1209;
 const PRODUCT_ID = 0x001;
+
+let keepOnTask: ReturnType<typeof setTimeout>;
 
 export async function initRigToUsb() {
   navigator.hid.addEventListener('disconnect', handleDisconnect);
@@ -23,6 +25,7 @@ function handleDisconnect(event: HIDConnectionEvent) {
   if (event.device === device) {
     device = null;
     setGuiMode(GuiMode.SomeError);
+    clearTimeout(keepOnTask);
   }
 };
 
@@ -43,6 +46,7 @@ function setDevice(d: HIDDevice): void {
   device = d;
   device.addEventListener("inputreport", handleHidInput);
   State.setSendCmdCallback(send_cat);
+  keepOnTask = setTimeout(keepOnHandler, 2000);
   setGuiMode(GuiMode.Connected);
 };
 
@@ -116,6 +120,13 @@ function send_cat(cmd: CmdType) {
       bytes: cmd.xk852serialNative
     })
 };
+
+function keepOnHandler() {
+  if (rig.keepRadioOn) {
+    sendReport(prebuild_cmds.radio_on_10s);
+  }
+  keepOnTask = setTimeout(keepOnHandler, 2000);
+}
 
 export function sendCmd(cmd: Cmd):Boolean {
   return sendReport(toCBOR(cmd))
