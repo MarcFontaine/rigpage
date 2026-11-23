@@ -1,6 +1,6 @@
 <script module lang="ts">
 import Option from '../settings/Options.svelte';
-import { enableHamLink } from './hamlink.ts';
+import { enableHamLink } from './hamlink';
 
 </script>
 

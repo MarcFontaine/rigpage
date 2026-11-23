@@ -1,4 +1,4 @@
-import type { ComponentType } from 'svelte';
+import type { Component } from 'svelte';
 
 import Config from '../config/Download.svelte';
 import RigControl from './RigControl.svelte';
@@ -13,7 +13,7 @@ import HID from '../hid/HID.svelte';
 import FT8 from '../ft8/FT8.svelte';
 import RigToUsb from '../rig_to_usb/Test.svelte';
 
-export function elementByName(element : String) : ComponentType {
+export function elementByName(element : string) : Component<any> {
   switch(element) {
     case 'Config': return Config;
     case 'RigControl': return RigControl;

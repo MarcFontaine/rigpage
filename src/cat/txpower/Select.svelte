@@ -10,7 +10,7 @@ let selected = $derived(rig.power);
 <select
   bind:value={selected}
   onchange={() => {
-    setOpMode(selected);
+    if (selected !== null) setOpMode(selected);
     }
   }
 >

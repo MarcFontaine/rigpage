@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { pwa } from './pwa.svelte.ts';
+  import { pwa } from './pwa.svelte';
   import About from '../debug/About.svelte';
 </script>
 

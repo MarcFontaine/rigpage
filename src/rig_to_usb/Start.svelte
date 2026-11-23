@@ -2,16 +2,16 @@
 import { onMount } from 'svelte';
 
 import { gotoRigcontrol } from '../ui/routes';
-import { toXK852Cmd } from '../cat.ts';
-import { type Cmd, CMD, prebuild_cmds, toCBOR } from './cmd.ts';
-import { isConnected, tryAutoConnectRigToUsb, connectRigToUsb } from './hidraw.ts';
+import { toXK852Cmd } from '../cat';
+import { type Cmd, CMD, prebuild_cmds, toCBOR } from './cmd';
+import { isConnected, tryAutoConnectRigToUsb, connectRigToUsb } from './hidraw';
 
 let isWorkable = $state(false);
 
 onMount(async () => {
   if (!isConnected()) {
     tryAutoConnectRigToUsb()
-      .then ((s) => isWorkable = s)
+      .then ((s) => isWorkable = (s !== null) )
   }
 })
 

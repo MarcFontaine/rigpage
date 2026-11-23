@@ -21,7 +21,7 @@
     "@sveltejs/vite-plugin-svelte": "^5.0.3",
     "@tsconfig/svelte": "^5.0.4",
     "@types/chrome": "^0.1.38",
-    "@types/w3c-web-hid": "^1.0.6",
+    "@types/w3c-web-hid": "^1.0.7",
     "@types/web": "0.0.71",
     "@typescript-eslint/eslint-plugin": "^8.68.0",
     "@typescript-eslint/parser": "^8.68.0",

@@ -1,7 +1,7 @@
 <script lang="ts">
 import {showOnOffButton, rig} from '../state.svelte';
-import { prebuild_cmds } from '../rig_to_usb/cmd.ts';
-import { sendReport } from '../rig_to_usb/hidraw.ts';
+import { prebuild_cmds } from '../rig_to_usb/cmd';
+import { sendReport } from '../rig_to_usb/hidraw';
 
 
 </script>

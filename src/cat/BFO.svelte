@@ -6,7 +6,7 @@ import {gui, rig} from '../state.svelte';
 import {} from '../cat';
 
 let bfo = $state(0);
-function setValue(f) {
+function setValue(f:number) {
   bfo = f;
 }
 
@@ -34,7 +34,6 @@ function setValue(f) {
     char = {bfo > 0 ? '+' : '-' }
     setter =  { d => { return;}}
     wheelSpeed = 0
-    pointerSpeed = 0
     clickSpeed = 0
     gap = 0
     width ="25%"

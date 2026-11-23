@@ -133,12 +133,20 @@ export function startSession(
   });
 
   session.addEventListener("streamsChanged", () => {
+    console.log("streamChanged");
     if (state.session === session) {
       const streams = session.streams;
       if (streams.length > 0) {
 	videoElement.srcObject = streams[0];
 	videoElement.play().catch(() => {});
       }
+    }
+    const peerConnection: RTCPeerConnection = session.rtcPeerConnection;
+    if (peerConnection) {
+      console.log("Native PeerConnection erfolgreich gegriffen.");
+      peerConnection.ondatachannel = (dcEvent: RTCDataChannelEvent) => {
+        handleIncomingDataChannel(dcEvent.channel);
+      };
     }
   });
 
@@ -166,3 +174,63 @@ export function initWebRTC() : GstWebRTCAPI {
   const api: GstWebRTCAPI = new GstWebRTCAPI(getConfig());
   return api;
 };
+/*
+function init_data_channel(session:ConsumerSession) {
+  session.addEventListener('peerConnectionCreated', (event: Event) => {
+  console.log("peerConnectionCreated");
+  const customEvent = event as CustomEvent;
+  const peerConnection: RTCPeerConnection = customEvent.detail.peerConnection;
+  peerConnection.addEventListener('datachannel', (event: RTCDataChannelEvent) => {
+    const dataChannel = event.channel;
+
+    if (dataChannel.label === 'meinEigenerKanal') {
+      dataChannel.addEventListener('open', () => {
+        console.log("Datenkanal ist bereit!");
+      });
+
+      dataChannel.addEventListener('message', (messageEvent: MessageEvent) => {
+        const daten: string = messageEvent.data;
+        console.log("Eigene Nachricht empfangen:", daten);
+      });
+
+      dataChannel.addEventListener('close', () => {
+        console.log("Datenkanal geschlossen.");
+      });
+    }
+  });
+});
+}
+ */
+
+function handleIncomingDataChannel(dataChannel: RTCDataChannel) {
+  console.log(`Datenkanal erkannt! Label: ${dataChannel.label}`);
+  dataChannel.send("test ts to rust");
+  dataChannel.send("test ts to rust");
+  dataChannel.send("test ts to rust");
+
+  dataChannel.addEventListener('open', () => {
+    console.log("Kanal ist OFFEN. Bereit zum Senden!");
+  });
+  dataChannel.addEventListener('message', (messageEvent: MessageEvent) => {
+    if (typeof messageEvent.data === 'string') {
+      console.log(`Nachricht erhalten:`, messageEvent.data);
+    }
+  });
+  dataChannel.addEventListener('close', () => {
+        console.log("Kanal geschlossen.");
+  });
+}
+
+/*
+function sendMessageToGStreamer(payload: string) {
+  // Sicherheitscheck: Ist der Kanal initialisiert und offen?
+  if (activeDataChannel && activeDataChannel.readyState === 'open') {
+    // Nachricht übermitteln (kann String, ArrayBuffer oder JSON sein)
+    activeDataChannel.send(payload);
+    console.log("Nachricht gesendet:", payload);
+  } else {
+    console.warn("Senden fehlgeschlagen: Datenkanal ist nicht offen oder nicht bereit.",
+                 activeDataChannel?.readyState);
+  }
+}
+*/

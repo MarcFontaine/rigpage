@@ -24,7 +24,7 @@ import { onMount } from 'svelte';
 import FT8Clock from'./FT8Clock.svelte';
 
 let decoded = new SvelteMap([]);
-let selected = $state(null);
+let selected: any = $state(null);
 
 let filterLatest = $state('');
 let fullQuery = $derived.by(joinFullQuery)
@@ -140,7 +140,7 @@ reply to: {selected.decode_message}
     <tbody>
     {#each [...decoded.values()] as row}
       <tr
-        onclick={()=> { selected = row; }}
+        onclick={ ()=> { selected = row; }}
       >
       {@render decodedRow(row)}
       </tr>

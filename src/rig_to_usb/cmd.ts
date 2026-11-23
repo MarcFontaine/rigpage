@@ -1,5 +1,5 @@
 import { encode, bool, bytes, arrayLen, u8, uint} from 'cbor-utils'
-import { Result, tryDecode, mapLen } from "cbor-utils";
+import { type Result, tryDecode, mapLen } from "cbor-utils";
 
 export const CMD = {
   StartBootLoader: 'StartBootLoader',

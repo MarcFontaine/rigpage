@@ -1,7 +1,7 @@
 <script lang="ts">
-import { toXK852Cmd } from '../cat.ts';
-import { type Cmd, CMD, prebuild_cmds, toCBOR } from './cmd.ts';
-import { isConnected, sendCmd, sendReport } from './hidraw.ts';
+import { toXK852Cmd } from '../cat';
+import { type Cmd, CMD, prebuild_cmds, toCBOR } from './cmd';
+import { isConnected, sendCmd, sendReport } from './hidraw';
 
 let radioOnTimeOut = $state(3600);
 

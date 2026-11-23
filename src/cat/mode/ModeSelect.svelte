@@ -10,7 +10,7 @@ let selected = $derived(rig.mode);
 <select
   bind:value={selected}
   onchange={() => {
-    setMode(selected);
+    if (selected !== null) setMode(selected);
     }
   }
 >
@@ -23,7 +23,7 @@ let selected = $derived(rig.mode);
   <option value={XK852Mode.CW} > CW </option>
   <option value={XK852Mode.ISB} > ISB </option>
   <option value={XK852Mode.FSK_LP} > FSK Low Power </option>
-  <option value={XK852Mode.FSK_MP} > FSK Medium Power </option>
+  <option value={XK852Mode.FSK_MID} > FSK Medium Power </option>
   <option value={XK852Mode.FSK_HP} > FSK High Power </option>
 </select>
 <style>

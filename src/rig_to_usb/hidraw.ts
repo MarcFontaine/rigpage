@@ -1,5 +1,5 @@
 import {setGuiMode, GuiMode} from '../gui';
-import { gotoStartRigToUSB } from '../ui/routes';
+import {gotoStartRigToUSB} from '../ui/routes';
 import {pushLog, rig} from '../state.svelte';
 import {setReturnMsg} from '../setXK852Status';
 import {type CmdType} from '../state.svelte';
